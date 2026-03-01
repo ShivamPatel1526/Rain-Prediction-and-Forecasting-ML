@@ -1,0 +1,45 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8" />
+    <title>Rain Prediction</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    </head>
+    <body>
+    <div class="card">
+        <h1>Rain Prediction System</h1>
+        <p class="sub">Enter weather values to predict rainfall.</p>
+
+        <form action="/predict" method="POST">
+        <label>Temperature (°C)</label>
+        <input type="number" step="0.01" name="Temperature" required />
+
+        <label>Humidity (%)</label>
+        <input type="number" step="0.01" name="Humidity" required />
+
+        <label>Pressure (hPa)</label>
+        <input type="number" step="0.01" name="Pressure" required />
+
+        <label>Wind Speed (km/h)</label>
+        <input type="number" step="0.01" name="WindSpeed" required />
+
+        <button type="submit">Predict</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h2>{{ result }}</h2>
+            {% if prob is not none %}
+            <p>Chance of rain: <b>{{ (prob * 100) | round(2) }}%</b></p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">
+            <p><b>Error:</b> {{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+    </body>
+    </html>
